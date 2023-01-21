@@ -3,8 +3,8 @@
 
 #include "sort.h"
 
-void sort(int *array, ssize_t low, ssize_t high, ssize_t ssize);
-ssize_t partition(int *array, ssize_t low, ssize_t high, ssize_t ssize);
+void sort(int *array, size_t low, size_t high, size_t size);
+size_t partition(int *array, size_t low, size_t high, size_t size);
 void swap(int *l_int, int *r_int);
 
 /**
@@ -14,15 +14,15 @@ void swap(int *l_int, int *r_int);
  */
 void quick_sort(int *array, size_t size)
 {
-	ssize_t _size;
+	/* ssize_t _size; */
 
 	if (size < 2)
 		return;
 	if (array == NULL)
 		return;
 
-	_size = (ssize_t)size;
-	sort(array, 0, _size - 1, _size);
+	/* _size = (ssize_t)size; */
+	sort(array, 0, size - 1, size);
 }
 
 /**
@@ -31,10 +31,9 @@ void quick_sort(int *array, size_t size)
  * @low: lower index range
  * @high: higher index range
  */
-void sort(int *array, ssize_t low, ssize_t high, ssize_t size)
+void sort(int *array, size_t low, size_t high, size_t size)
 {
-	ssize_t pivot_idx;
-	printf("sort %li, %li\n", low, high);
+	size_t pivot_idx;
 
 	if (low >= high)
 		return;
@@ -43,7 +42,8 @@ void sort(int *array, ssize_t low, ssize_t high, ssize_t size)
 	pivot_idx = partition(array, low, high, size);
 
 	/* conquer from left, then right */
-	sort(array, low, pivot_idx - 1, size);
+	if (pivot_idx != 0)
+		sort(array, low, pivot_idx - 1, size);
 	sort(array, pivot_idx + 1, high, size);
 	return;
 }
@@ -57,10 +57,10 @@ void sort(int *array, ssize_t low, ssize_t high, ssize_t size)
  *
  * Return: The pivot point in the array.
  */
-ssize_t partition(int *array, ssize_t low, ssize_t high, ssize_t size)
+size_t partition(int *array, size_t low, size_t high, size_t size)
 {
-	ssize_t pivot_idx = 0; /* this should point to the pivot point. */
-	ssize_t i = 0;
+	size_t pivot_idx = 0; /* this should point to the pivot point. */
+	size_t i = 0;
 	int pivot;
 
 	pivot = array[high];
@@ -73,14 +73,16 @@ ssize_t partition(int *array, ssize_t low, ssize_t high, ssize_t size)
 		{ /* it is in the wrong half, swap it and increase pivot index */
 			pivot_idx++;
 			swap(array + pivot_idx - 1, array + i);
-			print_array(array, size);
+			if (pivot_idx - 1 != i)
+				print_array(array, size);
 		}
 	}
 
 	/* swap the number in the pivot point with the pivot number */
 	swap(array + pivot_idx, array + high);
+	if (pivot_idx != high)
+		print_array(array, size);
 
-	printf("return %li\n", pivot_idx);
 	return (pivot_idx);
 }
 
