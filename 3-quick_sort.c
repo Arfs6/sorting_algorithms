@@ -3,8 +3,8 @@
 
 #include "sort.h"
 
-size_t sort(int *array, size_t low, size_t high, size_t size);
-size_t partition(int *array, size_t low, size_t high, size_t size);
+void sort(int *array, ssize_t low, ssize_t high, ssize_t ssize);
+ssize_t partition(int *array, ssize_t low, ssize_t high, ssize_t ssize);
 void swap(int *l_int, int *r_int);
 
 /**
@@ -14,7 +14,15 @@ void swap(int *l_int, int *r_int);
  */
 void quick_sort(int *array, size_t size)
 {
-	sort(array, 0, size - 1, size);
+	ssize_t _size;
+
+	if (size < 2)
+		return;
+	if (array == NULL)
+		return;
+
+	_size = (ssize_t)size;
+	sort(array, 0, _size - 1, _size);
 }
 
 /**
@@ -23,22 +31,21 @@ void quick_sort(int *array, size_t size)
  * @low: lower index range
  * @high: higher index range
  */
-size_t sort(int *array, size_t low, size_t high, size_t size)
+void sort(int *array, ssize_t low, ssize_t high, ssize_t size)
 {
-	size_t pivot_idx;
-	printf("%lu, %lu\n", low, high);
+	ssize_t pivot_idx;
+	printf("sort %li, %li\n", low, high);
 
-	/* base case at either index. */
-	if (low < high)
-	{
-		/* divide and get index of division */
-		pivot_idx = partition(array, low, high, size);
+	if (low >= high)
+		return;
 
-		/* conquer from left, then right */
-		if (pivot_idx != 0)
-			sort(array, low, pivot_idx - 1, size);
-		sort(array, pivot_idx + 1, high, size);
-	}
+	/* divide and get index of division */
+	pivot_idx = partition(array, low, high, size);
+
+	/* conquer from left, then right */
+	sort(array, low, pivot_idx - 1, size);
+	sort(array, pivot_idx + 1, high, size);
+	return;
 }
 
 /**
@@ -50,13 +57,14 @@ size_t sort(int *array, size_t low, size_t high, size_t size)
  *
  * Return: The pivot point in the array.
  */
-size_t partition(int *array, size_t low, size_t high, size_t size)
+ssize_t partition(int *array, ssize_t low, ssize_t high, ssize_t size)
 {
-	size_t pivot_idx = 0; /* this should point to the pivot point. */
-	size_t i = 0;
+	ssize_t pivot_idx = 0; /* this should point to the pivot point. */
+	ssize_t i = 0;
 	int pivot;
 
 	pivot = array[high];
+	pivot_idx = low;
 
 	/* loop from low to 1 index from high */
 	for (i = low; i < high; ++i)
@@ -72,6 +80,7 @@ size_t partition(int *array, size_t low, size_t high, size_t size)
 	/* swap the number in the pivot point with the pivot number */
 	swap(array + pivot_idx, array + high);
 
+	printf("return %li\n", pivot_idx);
 	return (pivot_idx);
 }
 
