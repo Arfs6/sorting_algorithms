@@ -17,7 +17,7 @@ void selection_sort(int *array, size_t size)
 
 	i = j = 0;
 
-	if (size == 0 || size == 1)
+	if (size < 2 || array == NULL)
 		return; /* already sorted */
 
 	/* loop through the array stopping at size-1 */

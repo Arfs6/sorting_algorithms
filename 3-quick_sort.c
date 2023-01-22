@@ -30,6 +30,7 @@ void quick_sort(int *array, size_t size)
  * @array: array to sort
  * @low: lower index range
  * @high: higher index range
+ *  @size: size of array. Used for printing
  */
 void sort(int *array, size_t low, size_t high, size_t size)
 {
@@ -45,15 +46,16 @@ void sort(int *array, size_t low, size_t high, size_t size)
 	if (pivot_idx != 0)
 		sort(array, low, pivot_idx - 1, size);
 	sort(array, pivot_idx + 1, high, size);
-	return;
 }
 
 /**
  * partition - divides an array into two. First half should be lower than the
- * pivot point. The pivot should be the last item in the array. i.e. array[high]
+ * pivot point. The pivot should be the last item in the array.
+ * i.e. array[high]
  * @array: array to divide.
  * @low: lower index to start with.
  * @high: higher index to stop at.
+ * @size: size of the array. Used for printing
  *
  * Return: The pivot point in the array.
  */

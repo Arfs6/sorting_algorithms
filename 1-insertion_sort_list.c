@@ -17,12 +17,13 @@ void insertion_sort_list(listint_t **list)
 		return;
 
 	cur = *list;
-	if (!cur->next)
+	/* check for no items */
+	if (!cur || !cur->next)
 		return;
 
 	/* loop through the list, starting at second item */
 	cur = cur->next;
-	do{
+	do {
 		/* since we might change cur, let's store the next item */
 		next = cur->next;
 		prev = cur->prev;
@@ -46,7 +47,7 @@ void insertion_sort_list(listint_t **list)
 		}
 
 		cur = next;
-	} while(cur != NULL);
+	} while (cur != NULL);
 }
 
 /**
