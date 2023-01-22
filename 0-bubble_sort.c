@@ -27,6 +27,7 @@ void bubble_sort(int *array, size_t size)
 				array[idx + 1] = temp;
 				sort = TRUE;
 				print_array(array, size);
+				break;
 			}
 		}
 
