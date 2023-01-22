@@ -12,8 +12,7 @@ void swap(int *l_int, int *r_int);
  */
 void selection_sort(int *array, size_t size)
 {
-	size_t i, j;
-	int *min_int, sort;
+	size_t i, j, min_pos;
 
 	i = j = 0;
 
@@ -23,20 +22,18 @@ void selection_sort(int *array, size_t size)
 	/* loop through the array stopping at size-1 */
 	for (i = 0; i < size - 1; ++i)
 	{
-		min_int = array + i;
-		sort = FALSE;
+		min_pos = i;
 		/* now find and swap the lowest integer */
 		for (j = i + 1; j < size; ++j)
-			if (array[j] < *min_int)
+			if (array[j] < array[min_pos])
 			{
-				sort = TRUE;
-				min_int = array + j;
+				min_pos = j;
 			}
 
 		/* swap the found max integer */
-		if (sort == TRUE)
+		if (min_pos != i)
 		{
-			swap(&(array[i]), min_int);
+			swap(&(array[i]), &array[min_pos]);
 			print_array(array, size);
 		}
 	}
