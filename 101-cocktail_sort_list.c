@@ -69,7 +69,7 @@ int sort_right(listint_t **list)
  */
 int sort_left(listint_t **list)
 {
-	listint_t *node, *prev = NULL;
+	listint_t *node;
 	int sort = FALSE;
 
 	/* take node to tail */
