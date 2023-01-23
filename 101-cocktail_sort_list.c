@@ -83,9 +83,9 @@ int sort_left(listint_t **list)
 				{
 					swap(node->prev, node);
 					sort = TRUE;
-					print_list(*list);
 					if (node->prev == NULL)
 						*list = node;
+					print_list(*list);
 				}
 				else
 					node = node->prev;
