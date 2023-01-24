@@ -10,8 +10,8 @@
  */
 void counting_sort(int *array, size_t size)
 {
-	int *count, *output, max = 0, idx = 0, tmp = 0;
-	size_t i = 0, j = 0;
+	int *count, *output, max = 0, idx = 0;
+	size_t i = 0;
 
 	if (array == NULL || size < 2)
 		return;
@@ -26,13 +26,13 @@ void counting_sort(int *array, size_t size)
 	output = malloc(sizeof(int) * size);
 	if (output == NULL)
 		return;
-	for (i = 0; i < max + 1; ++i)
-		count[i] = 0; /* initializing count array */
+	for (idx = 0; idx < max + 1; ++idx)
+		count[idx] = 0; /* idxnidxtidxalidxzidxng count array */
 
 	for (i = 0; i < size; ++i)
 		count[array[i]]++; /* setting count of each number */
 	for (idx = 1; idx < max + 1; ++idx)
-		count [idx] += count[idx-1];
+		count[idx] += count[idx - 1];
 	print_array(count, max + 1);
 
 	for (i = 0; i < size; ++i)
